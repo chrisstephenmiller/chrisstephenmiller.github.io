@@ -161,7 +161,6 @@ export default function App() {
     ]);
     nextWord(2000);
   }
-  console.log(pauseActive)
   // Get available word lengths for dropdown
   const uniqueLengths = [5, 6, 7, 8];
   useEffect(() => {
