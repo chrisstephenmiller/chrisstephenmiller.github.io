@@ -22,13 +22,14 @@ export default function App() {
   const [result, setResult] = useState("");
   const [showAnswer, setShowAnswer] = useState(false);
   const [otherValid, setOtherValid] = useState([]);
-  const [selectedLengths, setSelectedLengths] = useState([5]);
+  const [selectedLengths, setSelectedLengths] = useState([5, 6]);
   const timerOptions = [5, 10, 15, 30];
   const [timerSetting, setTimerSetting] = useState(10);
   const [timer, setTimer] = useState(timerSetting);
   const [pauseActive, setPauseActive] = useState(false);
   const timerRef = React.useRef();
   const inputRef = React.useRef(null);
+  const [history, setHistory] = useState([]);
 
   useEffect(() => {
     nextWord();
@@ -47,6 +48,20 @@ export default function App() {
           if (t <= 1) {
             clearInterval(timerRef.current);
             setShowAnswer(true);
+            // Only add to history if not already added for this word
+            setHistory(prev => {
+              if (prev.length > 0 && prev[prev.length - 1].word === currentWord) {
+                return prev;
+              }
+              return [
+                ...prev,
+                {
+                  word: currentWord,
+                  guess: guess,
+                  correct: false
+                }
+              ];
+            });
             nextWord(3000);
             return 0;
           }
@@ -133,10 +148,18 @@ export default function App() {
     if (inputRef.current) {
       inputRef.current.focus();
     }
-  setShowAnswer(true);
-  setPauseActive(true);
-  setResult(valid ? "Correct!" : "Wrong answer.");
-  nextWord(2000);
+    setShowAnswer(true);
+    setPauseActive(true);
+    setResult(valid ? "Correct!" : "Wrong answer.");
+    setHistory(prev => [
+      ...prev,
+      {
+        word: currentWord,
+        guess: userGuess,
+        correct: valid
+      }
+    ]);
+    nextWord(2000);
   }
   console.log(pauseActive)
   // Get available word lengths for dropdown
@@ -298,6 +321,28 @@ export default function App() {
               {/* No valid answers shown for invalid guess */}
             </div>
           )}
+        </div>
+      )}
+      {/* History List - always show */}
+      {history.length > 0 && (
+        <div style={{ marginTop: 24, textAlign: "left" }}>
+          <h3 style={{ fontSize: "1.1rem", marginBottom: 8 }}>
+            Previous Words:
+            <span style={{ fontWeight: "normal", fontSize: "0.95rem", marginLeft: 8 }}>
+              {history.filter(h => h.correct).length}/{history.length} correct
+            </span>
+          </h3>
+          <ul style={{ listStyle: "none", padding: 0 }}>
+            {[...history].reverse().map((item, idx) => (
+              <li key={idx} style={{
+                marginBottom: 4,
+                color: item.correct ? "green" : "red",
+                fontWeight: item.correct ? "bold" : "normal"
+              }}>
+                {item.word} &rarr; {item.guess || <em>No guess</em>} {item.correct ? "✓" : "✗"}
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </div>
