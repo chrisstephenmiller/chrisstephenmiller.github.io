@@ -1,0 +1,313 @@
+header {
+  padding-left: 2vw;
+  padding-right: 2vw;
+}
+  header {
+    padding-left: 2vw;
+    padding-right: 2vw;
+  }
+body {
+  margin: 0;
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  background: #f7f7f7;
+  color: #222;
+}
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5vw;
+  box-sizing: border-box;
+}
+
+.header-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 0 1rem 0;
+}
+
+.logo {
+  height: 24px;
+}
+
+nav {
+  flex: 1;
+  text-align: right;
+}
+
+.nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 2rem;
+  justify-content: flex-end;
+}
+
+.nav-list li a {
+  text-decoration: none;
+  color: #222;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: color 0.2s;
+}
+
+.nav-list li a:hover {
+  color: #b48a78;
+}
+
+.main-content {
+  background: #fff;
+  padding: 2.5rem 0 2rem 0;
+  min-height: 80vh;
+}
+
+.main-content h1 {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  color: #b48a78;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #555;
+}
+
+.events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.event-card {
+  display: flex;
+  background: #f9f6f3;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  padding: 1.5rem 1.2rem;
+  align-items: center;
+  gap: 2rem;
+}
+
+.event-date {
+  background: #b48a78;
+  color: #fff;
+  border-radius: 4px;
+  width: 60px;
+  min-width: 60px;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-right: 1rem;
+}
+
+.event-day {
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.event-month {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.event-info {
+  flex: 1;
+}
+
+.event-title {
+  margin: 0 0 0.3rem 0;
+  font-size: 1.3rem;
+  color: #222;
+}
+
+.event-meta {
+  font-size: 1rem;
+  color: #b48a78;
+  margin-bottom: 0.7rem;
+}
+
+.event-desc {
+  color: #444;
+  font-size: 1rem;
+  margin-bottom: 0.7rem;
+}
+
+.event-link {
+  color: #b48a78;
+  text-decoration: underline;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.event-link:hover {
+  color: #8c6a5a;
+}
+
+.main-footer {
+  background: #222;
+  color: #fff;
+  text-align: center;
+  padding: 1.2rem 0;
+  font-size: 1rem;
+  margin-top: 2rem;
+}
+
+.main-footer a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  .container {
+    width: 100%;
+    padding: 3vw;
+    box-sizing: border-box;
+  }
+
+  .header-flex {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+    padding: 0.7rem 0 0.7rem 0;
+  }
+
+  .logo {
+    height: 20px;
+    margin-bottom: 0.5rem;
+  }
+
+  nav {
+    text-align: left;
+  }
+
+  /* Make only the nav-list horizontally scrollable, not the full page */
+  .nav-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    width: 100%;
+    margin-bottom: 0.2rem;
+  }
+
+  .nav-list {
+    flex-direction: row;
+    gap: 1.2rem;
+    align-items: center;
+    white-space: nowrap;
+    min-width: max-content;
+    width: auto;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-list li {
+    flex: 0 0 auto;
+  }
+
+  .nav-list li a {
+    font-size: 1rem;
+    padding: 0.5rem 0.3rem;
+    display: inline-block;
+    width: auto;
+    box-sizing: border-box;
+  }
+
+  .main-content {
+    padding: 1.2rem 0 1rem 0;
+  }
+
+  .main-content h1 {
+    font-size: 1.3rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .event-card {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 0.7rem;
+  }
+
+  .event-date {
+    width: 48px;
+    min-width: 48px;
+    height: 48px;
+    font-size: 1rem;
+  }
+
+  .event-day {
+    font-size: 1.2rem;
+  }
+
+  .event-month {
+    font-size: 0.9rem;
+  }
+
+  .event-title {
+    font-size: 1.1rem;
+  }
+
+  .event-meta,
+  .event-desc,
+  .event-link {
+    font-size: 0.95rem;
+  }
+
+  .event-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+
+  .main-footer {
+    font-size: 0.95rem;
+    padding: 0.8rem 0;
+  }
+
+  .event-detail {
+    padding: 0;
+  }
+
+  .event-header,
+  .event-body {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2vw
+
+  }
+}
+
+@media (max-width: 800px) {
+
+  .header-flex,
+  .event-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .event-date {
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+
+}
