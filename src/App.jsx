@@ -9,7 +9,7 @@ function shuffleWord(word) {
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
+    }f10
   } while (shuffled.join("") === word && word.length > 1);
   return shuffled.join("");
 }
@@ -22,9 +22,9 @@ export default function App() {
   const [result, setResult] = useState("");
   const [showAnswer, setShowAnswer] = useState(false);
   const [otherValid, setOtherValid] = useState([]);
-  const [selectedLengths, setSelectedLengths] = useState([5, 6]);
+  const [selectedLengths, setSelectedLengths] = useState([5, 6, 7]);
   const timerOptions = [5, 10, 15, 30];
-  const [timerSetting, setTimerSetting] = useState(10);
+  const [timerSetting, setTimerSetting] = useState(15);
   const [timer, setTimer] = useState(timerSetting);
   const [pauseActive, setPauseActive] = useState(false);
   const timerRef = React.useRef();
