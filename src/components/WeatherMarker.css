@@ -1,0 +1,78 @@
+.weather-marker-container {
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weather-marker-icon {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px);
+  min-width: 55px;
+}
+
+.weather-marker-emoji {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.weather-marker-temp {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Combined golf course and weather markers */
+.course-marker-container {
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.course-marker-icon {
+  background-color: #ffa500;
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.125rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.course-marker-emoji {
+  font-size: 1.25rem;
+  line-height: 1;
+  color: white;
+}
+
+.course-marker-temp {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+  .weather-marker-icon {
+    background-color: rgba(50, 50, 50, 0.9);
+  }
+
+  .weather-marker-temp {
+    color: #fff;
+  }
+}
