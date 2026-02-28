@@ -78,7 +78,9 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
           />
         </div>
         <div className="forecast-time">
-          <label htmlFor="forecast-hour">Time: {formatHourTo12(forecastHour)}</label>
+          <label htmlFor="forecast-hour">
+            Time: {formatHourTo12(forecastHour)}
+          </label>
           <input
             id="forecast-hour"
             type="range"

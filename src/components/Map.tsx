@@ -46,7 +46,7 @@ function MapUpdater({
   const map = useMap();
 
   useEffect(() => {
-    map.setView([location.lat, location.lng], 12);
+    map.setView([location.lat, location.lng], 11);
   }, [location, map]);
 
   return null;
@@ -60,7 +60,7 @@ const Map: React.FC<MapProps> = ({ location, forecastDate, forecastHour }) => {
     <div className="map-container">
       <MapContainer
         center={[location.lat, location.lng]}
-        zoom={12}
+        zoom={11}
         className="map"
       >
         <TileLayer
