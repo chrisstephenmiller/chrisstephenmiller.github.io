@@ -41,7 +41,8 @@ const haveBoundsChanged = (
 
 const GolfCourseMarkers: React.FC<{
   onCoursesUpdate?: (courses: GolfCourse[]) => void;
-}> = ({ onCoursesUpdate }) => {
+  onLoadingChange?: (isLoading: boolean) => void;
+}> = ({ onCoursesUpdate, onLoadingChange }) => {
   const map = useMap();
   const [golfCourses, setGolfCourses] = useState<GolfCourse[]>([]);
   const boundsCache = useRef<CachedBounds | null>(null);
@@ -78,6 +79,7 @@ const GolfCourseMarkers: React.FC<{
           return;
         }
 
+        onLoadingChange?.(true);
         console.log("Fetching golf courses for bounds:", newBounds);
 
         // Overpass API query for golf courses - using QL format
@@ -136,8 +138,10 @@ const GolfCourseMarkers: React.FC<{
         // Cache the results with the bounds
         boundsCache.current = { ...newBounds, courses };
         setGolfCourses(courses);
+        onLoadingChange?.(false);
       } catch (error) {
         console.error("Error fetching golf courses:", error);
+        onLoadingChange?.(false);
       }
     };
 

@@ -1,6 +1,13 @@
 import { useState } from "react";
 import "./LocationSearch.css";
 
+// Convert 24-hour format to 12-hour AM/PM format
+const formatHourTo12 = (hour: number): string => {
+  const period = hour >= 12 ? "PM" : "AM";
+  const hour12 = hour % 12 || 12;
+  return `${hour12}:00 ${period}`;
+};
+
 interface LocationSearchProps {
   onLocationSelect: (location: {
     lat: number;
@@ -71,7 +78,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
           />
         </div>
         <div className="forecast-time">
-          <label htmlFor="forecast-hour">Time: {forecastHour}:00</label>
+          <label htmlFor="forecast-hour">Time: {formatHourTo12(forecastHour)}</label>
           <input
             id="forecast-hour"
             type="range"

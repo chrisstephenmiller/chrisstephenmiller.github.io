@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "type": "module",
-  "homepage": "http://chrisstephenmiller.github.io/chrisstephenmiller.github.io",
+  "homepage": "https://chrismiller.dev",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

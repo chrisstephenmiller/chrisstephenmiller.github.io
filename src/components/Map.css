@@ -4,6 +4,7 @@
   border-radius: 0;
   overflow: hidden;
   box-shadow: none;
+  position: relative;
 }
 
 .map {

@@ -3,6 +3,7 @@ import L from "leaflet";
 import { useEffect, useState } from "react";
 import WeatherGrid from "./WeatherGrid";
 import GolfCourseMarkers from "./GolfCourseMarkers";
+import LoadingSpinner from "./LoadingSpinner";
 
 import "./Map.css";
 
@@ -53,6 +54,7 @@ function MapUpdater({
 
 const Map: React.FC<MapProps> = ({ location, forecastDate, forecastHour }) => {
   const [golfCourses, setGolfCourses] = useState<GolfCourse[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   return (
     <div className="map-container">
@@ -69,7 +71,10 @@ const Map: React.FC<MapProps> = ({ location, forecastDate, forecastHour }) => {
           <Popup>{location.name}</Popup>
         </Marker>
         <MapUpdater location={location} />
-        <GolfCourseMarkers onCoursesUpdate={setGolfCourses} />
+        <GolfCourseMarkers
+          onCoursesUpdate={setGolfCourses}
+          onLoadingChange={setIsLoading}
+        />
         {golfCourses.length > 0 && (
           <WeatherGrid
             golfCourses={golfCourses}
@@ -78,6 +83,7 @@ const Map: React.FC<MapProps> = ({ location, forecastDate, forecastHour }) => {
           />
         )}
       </MapContainer>
+      <LoadingSpinner isLoading={isLoading} />
     </div>
   );
 };
