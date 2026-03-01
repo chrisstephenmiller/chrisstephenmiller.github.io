@@ -34,12 +34,17 @@ const createWeatherCacheKey = (
 const getWeatherEmoji = (code: number): string => {
   if (code === 0) return "☀️";
   if (code === 1 || code === 2) return "⛅";
-  if (code === 3) return "☁️";
-  if (code === 45 || code === 48) return "🌫️";
-  if ([51, 53, 55, 61, 63, 65, 80, 81, 82].includes(code)) return "🌧️";
+  if ([3, 45, 48, 51, 53, 55, 61, 63, 65, 80, 81, 82].includes(code))
+    return "☁️";
   if ([71, 73, 75, 85, 86].includes(code)) return "❄️";
   if ([95, 96, 99].includes(code)) return "⛈️";
   return "🌤️";
+};
+const getRainEmoji = (code: number): string => {
+  if ([51, 53, 55].includes(code)) return "💧";
+  if ([61, 63, 65].includes(code)) return "💧💧";
+  if ([80, 81, 82].includes(code)) return "💧💧💧";
+  return "";
 };
 
 const WeatherMarker: React.FC<WeatherMarkerProps> = ({
@@ -112,12 +117,13 @@ const WeatherMarker: React.FC<WeatherMarkerProps> = ({
   // Create custom icon with weather or golf course info
   useEffect(() => {
     let html: string;
-
+    console.log(weather);
     if (weather) {
       // Show weather info
       html = `
         <div class="course-marker-icon">
           <div class="course-marker-emoji">${getWeatherEmoji(weather.weatherCode)}</div>
+          <div class="course-rain-emoji">${getRainEmoji(weather.weatherCode)}</div>
           <div class="course-marker-temp">${weather.temperature}°</div>
         </div>
       `;

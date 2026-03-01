@@ -52,12 +52,21 @@
   justify-content: center;
   gap: 0.125rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  padding-left: .1rem;
 }
 
 .course-marker-emoji {
   font-size: 1.25rem;
   line-height: 1;
   color: white;
+  display: flex;
+  flex-direction: row;
+}
+
+.course-rain-emoji {
+  position: absolute;
+  top: 1.15rem;
+  font-size: .3rem;
 }
 
 .course-marker-temp {
