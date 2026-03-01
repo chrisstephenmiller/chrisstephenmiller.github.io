@@ -9,15 +9,23 @@ interface Location {
   name: string;
 }
 
+// Get today's date in local timezone as YYYY-MM-DD string
+const getLocalDateString = (): string => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
+
 function App() {
   const [location, setLocation] = useState<Location>({
     lat: 41.95522,
     lng: -87.719374,
     name: "Chicago",
   });
-  const [forecastDate, setForecastDate] = useState<string>(
-    new Date().toISOString().split("T")[0],
-  );
+  const [forecastDate, setForecastDate] =
+    useState<string>(getLocalDateString());
   const [forecastHour, setForecastHour] = useState<number>(12);
 
   return (

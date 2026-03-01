@@ -19,16 +19,16 @@ interface WeatherMarkerProps {
 }
 
 // Module-level cache for weather queries
-// Key format: "lat,lng,date,hour"
-const weatherCache = new Map<string, WeatherData>();
+// Key format: "lat,lng,date" (date only, no hour)
+// Value: array of WeatherData for all 24 hours (index 0-23)
+const weatherCache = new Map<string, WeatherData[]>();
 
 const createWeatherCacheKey = (
   lat: number,
   lng: number,
   date: string,
-  hour: number,
 ): string => {
-  return `${lat.toFixed(4)},${lng.toFixed(4)},${date},${hour}`;
+  return `${lat.toFixed(4)},${lng.toFixed(4)},${date}`;
 };
 
 const getWeatherEmoji = (code: number): string => {
@@ -58,13 +58,13 @@ const WeatherMarker: React.FC<WeatherMarkerProps> = ({
         location.lat,
         location.lng,
         forecastDate,
-        forecastHour,
       );
 
-      // Check if data is already cached
+      // Check if data is already cached for this date
       if (weatherCache.has(cacheKey)) {
         console.log("Using cached weather data:", cacheKey);
-        setWeather(weatherCache.get(cacheKey) || null);
+        const dayData = weatherCache.get(cacheKey)!;
+        setWeather(dayData[forecastHour]);
         return;
       }
 
@@ -76,32 +76,28 @@ const WeatherMarker: React.FC<WeatherMarkerProps> = ({
       fetchInProgress.current = true;
 
       try {
-        // Fetch hourly forecast data
+        // Fetch hourly forecast data from Open-Meteo API
+        // API returns all 24 hours for the given date in one call
+        // Cache the entire day so hour slider changes don't require refetching
         const response = await fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=${location.lat}&longitude=${location.lng}&start_date=${forecastDate}&end_date=${forecastDate}&hourly=temperature_2m,weather_code&temperature_unit=fahrenheit`,
+          `https://api.open-meteo.com/v1/forecast?latitude=${location.lat}&longitude=${location.lng}&start_date=${forecastDate}&end_date=${forecastDate}&hourly=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=auto`,
         );
-
         const data = await response.json();
 
-        // Find the data for the selected hour
-        if (
-          data.hourly &&
-          data.hourly.time &&
-          data.hourly.temperature_2m
-        ) {
-          const hourIndex = forecastHour; // 0-23 index corresponds to hour of day
-          const temperature = data.hourly.temperature_2m[hourIndex];
-          const weatherCode = data.hourly.weather_code[hourIndex];
+        // Build an array of WeatherData for all 24 hours
+        if (data.hourly && data.hourly.time && data.hourly.temperature_2m) {
+          const dayData: WeatherData[] = [];
+          for (let i = 0; i < data.hourly.time.length; i++) {
+            dayData[i] = {
+              temperature: Math.round(data.hourly.temperature_2m[i]),
+              weatherCode: data.hourly.weather_code[i],
+            };
+          }
 
-          const weatherData: WeatherData = {
-            temperature: Math.round(temperature),
-            weatherCode: weatherCode,
-          };
-
-          // Store in cache
-          weatherCache.set(cacheKey, weatherData);
-          setWeather(weatherData);
-          console.log("Fetched and cached weather:", cacheKey);
+          // Cache the entire day's worth of data
+          weatherCache.set(cacheKey, dayData);
+          setWeather(dayData[forecastHour]);
+          console.log("Fetched and cached weather for all hours:", cacheKey);
         }
       } catch (err) {
         console.error("Weather fetch error:", err);

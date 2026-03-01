@@ -63,7 +63,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
       <div className="search-row">
         <input
           type="text"
-          placeholder="Search location (e.g., New York, Chicago)"
+          placeholder="Location"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
           className="search-input"
